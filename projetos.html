@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projetos Eliezer Carvalho</title>
+    <link rel="stylesheet" href="css/projeto.css">
+
+    <!-- PyScript -->
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css" />
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+
+</head>
+
+</head>
+<body>
+
+    <nav>
+  <a href="index.html">Início</a>
+  <a href="projetos.html">Projetos</a>
+  <a href="#formacao">Formação</a>
+  <a href="#contato">Contato</a>
+</nav>
+    
+    <section>
+        <h1>
+        💻 Sistema de Cadastro de Clientes em Python
+        </h1>
+
+        <h2>Descrição:</h2>
+        <p>Aplicação em Python para gerenciar clientes de forma simples via terminal.
+         Permite adicionar, listar, buscar e exportar dados para um arquivo CSV.</p>
+
+        <h3>Link do projeto no GitHub:</h3>
+        <p><a href="https://github.com/eliezerzx/Sistema-de-Cadastro-de-Clientes-em-Python">Sistema de Cadastro de Clientes - GitHub</a></p>
+
+
+
+          <section id="projeto-cadastro">
+    <h2>Sistema de Cadastro de Clientes (Simulção)</h2>
+    <p>Este sistema permite cadastrar, listar e buscar clientes em memória, simulando um banco de dados.</p>
+
+    <div class="interface-projeto">
+        <div class="input-group">
+            <input type="text" id="nome" placeholder="Nome">
+            <input type="number" id="idade" placeholder="Idade">
+            <input type="email" id="email" placeholder="E-mail">
+        </div>
+        
+        <div class="botoes-acao">
+    <button py-click="web_adicionar" class="btn-add">Adicionar Cliente</button>
+    <button py-click="web_listar" class="btn-list">Listar Todos</button>
+    <button py-click="web_buscar" class="btn-search">Buscar por E-mail</button>
+    <button py-click="web_exportar" class="btn-export">Exportar CSV</button>
+        </div>
+
+    </div>
+
+    <div class="terminal-window">
+        <pre id="output-terminal">O terminal aguarda suas instruções...</pre>
+    </div>
+</section>
+
+<script type="py">
+ from pyscript import display, window
+ import csv
+
+# Lista para armazenar os dados dos clientes na memória do navegador
+clientes = []
+
+def exibir_no_terminal(mensagem):
+    # Mudando para append=True, o terminal acumula as mensagens
+    # Adicionamos um \n para pular linha
+    display(f"> {mensagem}\n", target="output-terminal", append=True)
+
+def web_adicionar(event):
+    # Pegando valores dos inputs HTML
+    nome = window.document.getElementById("nome").value
+    idade = window.document.getElementById("idade").value
+    email = window.document.getElementById("email").value
+
+    if nome and idade and email:
+        cliente = {"nome": nome, "idade": idade, "email": email}
+        clientes.append(cliente)
+        
+        # Limpando os campos após cadastrar
+        window.document.getElementById("nome").value = ""
+        window.document.getElementById("idade").value = ""
+        window.document.getElementById("email").value = ""
+        
+        exibir_no_terminal(f"✅ Cliente {nome} cadastrado com sucesso!")
+    else:
+        exibir_no_terminal("❌ Erro: Preencha todos os campos!")
+
+def web_listar(event):
+    if not clientes:
+        exibir_no_terminal("⚠️ Nenhum cliente cadastrado no momento.")
+    else:
+        relatorio = "=== Lista de Clientes ===\n"
+        for c in clientes:
+            relatorio += f"👤 Nome: {c['nome']} | Idade: {c['idade']} | Email: {c['email']}\n"
+        exibir_no_terminal(relatorio)
+
+def web_buscar(event):
+    # Pega o email digitado no campo de input
+    email_busca = window.document.getElementById("email").value
+    if not email_busca:
+        exibir_no_terminal("❌ Digite um e-mail no campo para buscar.")
+        return
+
+    encontrado = None
+    for c in clientes:
+        if c["email"] == email_busca:
+            encontrado = c
+            break
+    
+    if encontrado:
+        exibir_no_terminal(f"🔍 Cliente Encontrado:\nNome: {encontrado['nome']}\nIdade: {encontrado['idade']}\nEmail: {encontrado['email']}")
+    else:
+        exibir_no_terminal(f"❓ Cliente com email {email_busca} não encontrado.")
+
+def web_exportar(event):
+    if not clientes:
+        exibir_no_terminal("⚠️ Não há dados para exportar.")
+        return
+
+    try:
+        # 1. Criamos o conteúdo do CSV em uma String
+        conteudo_csv = "Nome,Idade,Email\n"
+        for c in clientes:
+            conteudo_csv += f"{c['nome']},{c['idade']},{c['email']}\n"
+
+        # 2. Importamos as ferramentas do JavaScript via PyScript
+        from js import document, Blob, URL
+        
+        # 3. Criamos o arquivo virtual (Blob)
+        blob = Blob.new([conteudo_csv], {type: 'text/csv'})
+        url = URL.createObjectURL(blob)
+        
+        # 4. Criamos um link invisível para disparar o download
+        link = document.createElement('a')
+        link.href = url
+        link.download = 'clientes_exportados.csv'
+        document.body.appendChild(link)
+        link.click()
+        
+        # 5. Limpamos a memória
+        document.body.removeChild(link)
+        URL.revokeObjectURL(url)
+        
+        exibir_no_terminal("✅ Download do arquivo 'clientes_exportados.csv' iniciado!")
+    
+    except Exception as e:
+        exibir_no_terminal(f"❌ Erro ao exportar: {str(e)}")
+
+</script>
+
+    </section>
+
+    <div class="section-divider"></div>
+
+<section id="github-callout">
+    <div class="github-container">
+        <div class="github-icon">
+            <svg height="40" viewBox="0 0 16 16" width="40" fill="var(--primary-color)">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+            </svg>
+        </div>
+        <div class="github-text">
+            <h3>Explore meu Código</h3>
+            <p>Confira todos os meus projetos acadêmicos, scripts de automação e estudos de infraestrutura no meu GitHub.</p>
+            <a href="https://github.com/eliezerzx?tab=repositories" target="_blank" class="btn-github">
+                👉 Ver todos os Repositórios
+            </a>
+        </div>
+    </div>
+</section>
+    
+</body>
+</html>

@@ -1,0 +1,17 @@
+meu-portfolio/
+├── index.html       # Página principal (Seu Currículo)
+├── css/             # Estilização (Deixe bonitão!)
+├── assets/          # Seu PDF de currículo e fotos
+└── projetos/        # Pasta com seus scripts .py
+    ├── projeto_1.py
+    └── projeto_2.py
+
+Teste Local: Abra esse arquivo index.html no seu navegador
+Chrome ou Edge funcionam melhor para isso).
+Nota: Pode demorar alguns segundos na primeira vez para carregar 
+o motor do Python.
+
+Personalize o Texto: Altere o nome, o curso e a descrição.
+
+Desafio: Tente mudar os valores de nota1 e nota2 no código Python e veja
+ o resultado mudar no site.

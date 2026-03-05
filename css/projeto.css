@@ -1,0 +1,235 @@
+/* Variáveis de Cores - Estilo Profissional TI */
+:root {
+    --primary-color: #109a73;    /* Azul Google/Cloud */
+    --secondary-color: #202124;  /* Cinza Escuro */
+    --accent-color: #27ae60;     /* Verde Sucesso (Python) */
+    --bg-color: #f8f9fa;         /* Fundo clarinho */
+    --text-color: #3c4043;
+    --white: #ffffff;
+    --terminal-bg: #1e1e1e;
+    --terminal-text: #4af626;    /* Verde Matrix clássico */
+}
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* Navegação Profissional */
+nav {
+    background-color: var(--secondary-color);
+    padding: 0; /* Ajustado para controlar o tamanho via links */
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+}
+
+nav a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 1.2rem 1.5rem; /* Aumenta a área de clique */
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    display: inline-block;
+}
+
+/* Efeito de brilho e cor no Hover */
+nav a:hover {
+    color: var(--primary-color);
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* Linha animada que surge embaixo do link */
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background-color: var(--primary-color);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* Classe para destacar a página onde o usuário está */
+nav a.active {
+    color: var(--primary-color);
+}
+
+nav a.active::after {
+    width: 70%; /* Linha fixa na página ativa */
+}
+
+/* Header */
+header {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    color: var(--white);
+    padding: 3rem 1rem;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    opacity: 0.9;
+    font-size: 1.1rem;
+}
+
+/* Layout de Seções */
+section {
+    max-width: 900px;
+    margin: 2rem auto;
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+h2 {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--bg-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+h3 {
+    margin-top: 1.5rem;
+    color: var(--secondary-color);
+}
+
+/* Estilização do Projeto Interativo */
+.interface-projeto {
+    background: #f1f3f4;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+}
+
+input:focus {
+    border-color: var(--primary-color);
+}
+
+.botoes-acao {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s, background 0.3s;
+}
+
+/* Container do Terminal */
+.terminal-window {
+    background-color: #0d0d0d; /* Preto quase puro */
+    border: 1px solid #333;
+    border-radius: 6px;
+    margin-top: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Barra superior do terminal (detalhe visual) */
+.terminal-window::before {
+    content: "● ● ●";
+    display: block;
+    background: #252525;
+    color: #555;
+    padding: 5px 15px;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+/* Texto dentro do terminal */
+#output-terminal {
+    font-family: 'Fira Code', 'Courier New', Courier, monospace;
+    color: #4af626; /* Verde neon clássico */
+    padding: 15px;
+    margin: 0;
+    min-height: 200px;
+    max-height: 400px;
+    overflow-y: auto;
+    white-space: pre-wrap; /* Mantém as quebras de linha do Python */
+    font-size: 14px;
+    line-height: 1.5;
+    scrollbar-width: thin;
+    scrollbar-color: #333 #0d0d0d;
+}
+
+/* Efeito de brilho suave no texto */
+#output-terminal {
+    text-shadow: 0 0 5px rgba(74, 246, 38, 0.2);
+}
+
+/* Estilização básica dos botões para combinar */
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    margin: 5px;
+}
+
+.btn-add { background: #27ae60; color: white; }
+.btn-list { background: #2980b9; color: white; }
+.btn-search { background: #f39c12; color: white; }
+.btn-export { background: #8e44ad; color: white; }
+
+button:hover {
+    filter: brightness(1.2);
+    transform: translateY(-1px);
+}
+
+button:active { transform: scale(0.95); }
+
+.btn-add { background-color: var(--accent-color); color: white;}
